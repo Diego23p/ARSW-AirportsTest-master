@@ -30,11 +30,15 @@ public class AirpotsFinderServicesImpl implements AirpotsFinderServices {
 	    
 	 @Override
 	 public String getAirpotsByName(String name) throws IOException{
-	     if(!afc.isSave(name)){
-	         afc.save(name, hcs.airpotsByName(name));
-	     }
-	      
-	     return afc.load(name);       
+		 if(!afc.isSave(name)){
+			 afc.save(name, hcs.airpotsByName(name));
+		 }
+		 else {
+			 if(!afc.isAlive(name)){
+				 afc.save(name, hcs.airpotsByName(name));
+			 }
+		 }
+		 return afc.load(name);
 	 }
 
 }

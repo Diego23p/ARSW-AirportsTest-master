@@ -27,17 +27,21 @@ public class AirpotsFinderCacheImpl implements AirportsFinderCache{
 	    
 	    public String load(String name) {
 	        String airpots = airpotsbyname.get(name);
-	        
-	        //en segundos:
+	        return airpots;
+	    }
+
+		@Override
+		public boolean isAlive(String name) {
+			
+			//en segundos:
 	        long timeLoad =( System.currentTimeMillis()-airpotstime.get(name))/1000;
 	        
 	        if (timeLoad>300){
 	            airpotsbyname.remove(name);
 	            airpotstime.remove(name);
+	            return false;
 	        }
-	        
-	        return airpots;
-	         
-	    }
+	        return true;
+		}
 
 }
